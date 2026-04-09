@@ -36,12 +36,9 @@ export class TelegramModule implements OnModuleInit {
       await this.webhookService.deleteWebhook();
       this.logger.log('Webhook deleted');
       
-      // Wait a moment before starting polling
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // Start polling automatically
-      this.pollingService.startPolling();
-      this.logger.log('Polling started automatically');
+      // NOTE: Auto-start polling disabled to prevent multiple instances on Railway
+      // Start polling manually via: POST /telegram/polling/start
+      this.logger.log('Telegram bot initialized. Start polling manually via API endpoint.');
     } catch (error) {
       this.logger.error('Failed to initialize Telegram bot', error.message);
     }
